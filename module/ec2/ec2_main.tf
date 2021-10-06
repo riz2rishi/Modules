@@ -125,13 +125,13 @@ resource "aws_iam_role_policy_attachment" "lambda_main_policy_attachment" {
   policy_arn = "${aws_iam_policy.lambda_policy.arn}"
 }
 
-data "archive_file" "lambda_code" {
+/*data "archive_file" "lambda_code" {
   type        = "zip"
   source_file = "lambda.js"
   output_path = "lambda.zip"
-}
+}*/
 
-resource "aws_lambda_function" "lambda_function" {
+/*resource "aws_lambda_function" "lambda_function" {
   filename         = "${data.archive_file.lambda_code.output_path}"
   function_name    = "EC2-Auto-Stop"
   role             = "${aws_iam_role.lambda_role.arn}"
@@ -160,7 +160,7 @@ resource "aws_cloudwatch_event_target" "lambda_trigger" {
   target_id = "${aws_lambda_function.lambda_function.function_name}"
   arn       = "${aws_lambda_function.lambda_function.arn}"
 }
-
+*/
 
 #----------------------------------------------------------------------------------------------------------
 
