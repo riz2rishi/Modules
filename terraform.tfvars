@@ -1,57 +1,49 @@
 
-####################################################################################
-####################################### vpc-mod ####################################
-
-cidr_vpc="10.0.0.0/16"
-public_subnet="10.0.0.0/24"
-private_subnet="10.0.1.0/24"
-vpc_subnet_az="us-west-2a"
-
-#####################################################################################
-####################################### vpc_peering #################################
-
-mod_aws_region_peer="us-east-1"
-mod_aws_profile="terraform-practice"
-mod_vpc_main_subnet_cidr="10.0.0.0/16"
-mod_vpc_peer_subnet_cidr="10.1.0.0/16"
-mod_aws_vpc_sub_az="us-west-2a"
-
-#####################################################################################
-####################################### org_mod #####################################
-
-aws_ou_name=["Security Account","Log Archive","Shared Services Account"]
-org_enabled_policy=["SERVICE_CONTROL_POLICY"]
-
-
-
-
-#####################################################################################
-####################################### iam_mod #####################################
-
-aws_user_name  = "user-1"
-aws_group_name = "Developers"
-aws_policy_data  = {
-            actions   = "s3:ListAllMyBuckets"
-            resources = "arn:aws:s3:::*"
-             effect    = "Allow"
-}
 
 
 
 #####################################################################################
 ####################################### ec2_mod #####################################
 
-ami_id = "ami-0c2d06d50ce30b442"
-instance_Type = "t2.micro"
 
-#####################################################################################
-####################################### alb_mod #####################################
+source = "./module/ec2"
+    region = "us-east-1"    
+profile = "terraform-rishi-aws"
+ami = {east1 = "ami-087c17d1fe0178315", east2 = "ami-00dfe2c7ce89a450b", west-1="ami-011996ff98de391d1",west-2="ami-0c2d06d50ce30b442"}
+instanceType = "t2.micro"
+index =0
 
 
-mod_lb_enable_deletion_protection   = false
-mod_lb_type                      = "application"
-mod_aws_vpc_cidr                 = "10.0.0.0/16"
-mod_lb_subnet_count              = 2
-mod_public_subnet_cidr           = ["10.0.0.0/24","10.0.1.0/24"]
-mod_alb_vpc_sub_az               = ["us-west-2a","us-west-2b"]
-mod_lb_listener_rule_priority    = 100
+#---------------------------------------------------------------------------------------------------------------------------------------
+
+#Custom AMIs (Golden Images)
+
+size =  40
+rootDevName = "/dev/xvda"
+DevName = "/dev/xvda"
+
+#---------------------------------------------------------------------------------------------------------------------------------------
+#ASG
+des_capacity = 1
+maxSize = 1
+minSize = 1
+namePrefix = "foobar"
+imgID = "ami-087c17d1fe0178315"
+
+#----------------------------------------------------------------------------------------------------------
+
+#Auto Start - Stop
+
+timeout = "300"
+
+#----------------------------------------------------------------------------------------------------------
+
+#Automated Session Manager in Private network
+availability_zones = ["us-east-1a", "us-east-1b", "us-east-1c"]
+name               = "NAME OF YOUR APPLICATION"
+private_start_ip   = "30"
+public_start_ip    = "20"
+subnet_prefix      = "10.0"
+vpc_cidr           = "10.0.0.0/16"
+  
+}

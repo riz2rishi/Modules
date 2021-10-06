@@ -1,14 +1,3 @@
-variable "aws_region" {
-
-    default = "us-west-2"
-  
-}
-
-
-
-#####################################################################################
-####################################### ec2_mod #####################################
-
 #variables for instance creation
 variable "region"{
     description = " Name of region "
@@ -147,4 +136,3 @@ variable "vpc_cidr" {
 locals {
   az_count = length(var.availability_zones)
 }
-

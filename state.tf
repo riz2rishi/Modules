@@ -1,6 +1,6 @@
 terraform{
     backend "s3" {
-        bucket = "riz-cicd-pipeline"#put your bucket name
+        bucket = "rishi-pipeline"#put your bucket name
         encrypt = true
         key = "landingzone/terraform.tfstate"
         region = "us-west-2"#update the region
