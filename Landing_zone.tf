@@ -3,7 +3,7 @@
 
 module "ec2" {
 
-    source = var.source 
+    source = "./module/ec2"
     region = var.region
 profile = var.profile
 ami = var.ami
