@@ -54,7 +54,7 @@ source = "./module/ncd"
 
 #INTERNET GATEWAT TFVARS
 
-vpc_cidr = "10.0.0.0/18"
+vpc_cidr_ncd = "10.0.0.0/18"
 pub_cidr = "10.0.0.0/24"
 cidr_rt = "0.0.0.0/0"
 
