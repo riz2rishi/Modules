@@ -1,10 +1,10 @@
 #EC2 Instance created
 resource "aws_instance" "new_instance" {
     count = var.enable_instance ? 1:0
-    ami = var.ami.east1 #type required region for AMI
-    instance_type = var.instanceType
+    ami = var.ami.east1[count.index] #type required region for AMI
+    instance_type = var.instanceType[count.index]
 }
-
+/*
 #---------------------------------------------------------------------------
 
 #CUSTOM AMIs (Golden Image)
@@ -12,7 +12,7 @@ resource "aws_instance" "new_instance" {
 
 #Creation of EBS volume
 resource "aws_ebs_volume" "example" {
-  count = var.enable_custom_ami ? 1:0
+  #count = var.enable_custom_ami ? 1:0
   availability_zone = var.az.east1a #Put Required availability zone 
   size              = var.size
 
@@ -23,7 +23,7 @@ resource "aws_ebs_volume" "example" {
 
 #EBS Snapshot 
 resource "aws_ebs_snapshot" "example_snapshot" {
-  count = var.enable_custom_ami ? 1:0
+ # count = var.enable_custom_ami ? 1:0
   volume_id = aws_ebs_volume.example.id
 
   tags = {
@@ -223,3 +223,4 @@ resource "aws_nat_gateway" "this" {
     Product = var.name
   }
 }
+*/
