@@ -15,7 +15,7 @@ enable_instance =var.enable_instance
 #---------------------------------------------------------------------------------------------------------------------------------------
 
 #Custom AMIs (Golden Images)
-
+az = var.az
 size =  var.size
 rootDevName = var.rootDevName
 DevName = var.DevName
