@@ -127,8 +127,12 @@ variable "enable_auto_start_stop" {
 }
 
 
-#------------------------------------
+#------------------------------------Auto Sessions Manager--------------------------------------
 
+variable "enable_auto_sess_manager" {
+  description = "Want to enable Automatic Sessions Manager ? (true/false)"
+  type = bool
+}
 variable "availability_zones" {
   description = "AWS AVailability Zones"
   type        = list
