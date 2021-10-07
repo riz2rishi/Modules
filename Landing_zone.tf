@@ -47,6 +47,7 @@ vpc_cidr           = var.vpc_cidr
     
 #------------------------------------------ncd--------------------------------------------------------------------------------------
 module "ncd" {
+    source = "./module/ncd"
 #INTERNET GATEWAT TFVARS
 
 vpc_cidr_ncd = var.vpc_cidr_ncd
@@ -98,3 +99,5 @@ alias = var.alias
 ttl = var.ttl
 record_type = var.record_type
 }
+
+#-------------------------------------------------------------------------------------------------------------
