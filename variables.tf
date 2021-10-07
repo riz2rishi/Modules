@@ -20,6 +20,10 @@ variable "profile"{
   type = string
   
 }
+variable "enable_instance" {
+  type = bool
+  description = " Want to deploy EC2 instance ? (true / false)"
+}
 variable "ami"{
   description = "AMI ID "
   type = map(any)
@@ -48,6 +52,10 @@ variable "az" {
   type = map(any)
   
 }
+variable "enable_custom_ami" {
+  type = bool
+  description = " Want to deploy custom AMI ? (true / false)"
+}
 variable "size" {
     description = "Size"
   type = number
@@ -68,7 +76,10 @@ variable "DevName" {
 
 
 #ASG Variables
-
+variable "enable_asg" {
+  description = "Want to deploy Auto Scaling Groups ? (true/false)"
+  type = bool
+}
 variable "des_capacity" {
   description = "Desired capacity of ASG"
   type = number
@@ -109,6 +120,10 @@ variable "timeout" {
   type = string
   description = " Duration for timeout"
   
+}
+variable "enable_auto_start_stop" {
+  type = bool 
+  description = "Want to enable auto start - stop functionality for EC2 instance ? (true /false)"
 }
 
 
