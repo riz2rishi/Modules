@@ -1,8 +1,8 @@
 #EC2 Instance created
 resource "aws_instance" "new_instance" {
   #  count = var.enable_instance ? 1:0
-    ami = var.ami.east1[count.index] #type required region for AMI
-    instance_type = var.instanceType[count.index]
+    ami = var.ami.east1 #type required region for AMI
+    instance_type = var.instanceType
 }
 
 #---------------------------------------------------------------------------
