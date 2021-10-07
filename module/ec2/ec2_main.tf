@@ -1,10 +1,10 @@
 #EC2 Instance created
 resource "aws_instance" "new_instance" {
-    count = var.enable_instance ? 1:0
+  #  count = var.enable_instance ? 1:0
     ami = var.ami.east1[count.index] #type required region for AMI
     instance_type = var.instanceType[count.index]
 }
-/*
+
 #---------------------------------------------------------------------------
 
 #CUSTOM AMIs (Golden Image)
@@ -32,7 +32,7 @@ resource "aws_ebs_snapshot" "example_snapshot" {
 }
 
 resource "aws_ami" "example" {
-  count = var.enable_custom_ami ? 1:0
+  #count = var.enable_custom_ami ? 1:0
   name                = "terraform-example"
   virtualization_type = "hvm"
   root_device_name    = var.rootDevName
@@ -53,14 +53,14 @@ resource "aws_ami" "example" {
 
 #Creating launch template
 resource "aws_launch_template" "foobar" {
-  count = var.enable_asg ? 1:0
+  #count = var.enable_asg ? 1:0
   name_prefix   = var.namePrefix
   image_id      = var.imgID
   instance_type = "t2.micro"
 }
 #Creating autoscaling group
 resource "aws_autoscaling_group" "bar" {
-  count = var.enable_asg ? 1:0
+  #count = var.enable_asg ? 1:0
   availability_zones = [var.az.east1a , var.az.east1b]
   desired_capacity   = var.des_capacity
   max_size           = var.maxSize
@@ -81,7 +81,7 @@ resource "aws_autoscaling_group" "bar" {
 
 
 resource "aws_iam_role" "lambda_role" {
-  count = var.enable_auto_start_stop ? 1:0
+  #count = var.enable_auto_start_stop ? 1:0
   name = "EC2-Auto-Stop-Lambda"
 
   assume_role_policy = <<EOF
@@ -139,7 +139,7 @@ data "archive_file" "lambda_code" {
 }
 
 resource "aws_lambda_function" "lambda_function" {
-  count = var.enable_auto_start_stop ? 1:0
+  #count = var.enable_auto_start_stop ? 1:0
   filename         = "${data.archive_file.lambda_code.output_path}"
   function_name    = "EC2-Auto-Stop"
   role             = "${aws_iam_role.lambda_role.arn}"
@@ -150,7 +150,7 @@ resource "aws_lambda_function" "lambda_function" {
 }
 
 resource "aws_lambda_permission" "allow_cloudwatch" {
-  count = var.enable_auto_start_stop ? 1:0
+  #count = var.enable_auto_start_stop ? 1:0
   statement_id  = "AllowExecutionFromCloudWatch"
   action        = "lambda:InvokeFunction"
   function_name = "${aws_lambda_function.lambda_function.function_name}"
@@ -159,14 +159,14 @@ resource "aws_lambda_permission" "allow_cloudwatch" {
 }
 
 resource "aws_cloudwatch_event_rule" "daily_stop" {
-  count = var.enable_auto_start_stop ? 1:0
+  #count = var.enable_auto_start_stop ? 1:0
   name                = "Daily-EC2-Stop-instances"
   description         = "Stops the instances"
   schedule_expression = "cron(0 16 * * ? *)"
 }
 
 resource "aws_cloudwatch_event_target" "lambda_trigger" {
-  count = var.enable_auto_start_stop ? 1:0
+  #count = var.enable_auto_start_stop ? 1:0
   rule      = "${aws_cloudwatch_event_rule.daily_stop.name}"
   target_id = "${aws_lambda_function.lambda_function.function_name}"
   arn       = "${aws_lambda_function.lambda_function.arn}"
@@ -183,7 +183,7 @@ locals {
 }
 #Creation of VPC
 resource "aws_vpc" "this" {
-  count = var.enable_auto_sess_manager ? 1:0
+  #count = var.enable_auto_sess_manager ? 1:0
   cidr_block           = var.vpc_cidr
   enable_dns_support   = true
   enable_dns_hostnames = true
@@ -196,7 +196,7 @@ resource "aws_vpc" "this" {
 
 #Creating security group for the network
 resource "aws_default_security_group" "default" {
-  count = var.enable_auto_sess_manager ? 1:0
+  #count = var.enable_auto_sess_manager ? 1:0
   vpc_id = aws_vpc.this.id
   tags = {
     Product = var.name
@@ -204,7 +204,7 @@ resource "aws_default_security_group" "default" {
 }
 
 resource "aws_internet_gateway" "this" {
-  count = var.enable_auto_sess_manager ? 1:0
+  #count = var.enable_auto_sess_manager ? 1:0
   vpc_id = aws_vpc.this.id
   tags = {
     Name    = upper("IGW_${local.name}")
@@ -213,7 +213,7 @@ resource "aws_internet_gateway" "this" {
 }
 #NAT Gateway creation
 resource "aws_nat_gateway" "this" {
-  count = var.enable_auto_sess_manager ? 1:0
+  #count = var.enable_auto_sess_manager ? 1:0
   allocation_id = aws_eip.nat_eip.id
   subnet_id     = element(aws_subnet.public.*.id, 0)
   depends_on    = [aws_internet_gateway.this]
@@ -223,4 +223,3 @@ resource "aws_nat_gateway" "this" {
     Product = var.name
   }
 }
-*/
