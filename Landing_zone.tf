@@ -3,12 +3,13 @@
 
 module "ec2" {
 
-    source = "./module/ec2"
-    region = var.region
+source = "./module/ec2"
+region = var.region
 profile = var.profile
 ami = var.ami
 instanceType = var.instanceType
 index = var.index
+enable_instance =var.enable_instance
 
 
 #---------------------------------------------------------------------------------------------------------------------------------------
@@ -18,9 +19,10 @@ index = var.index
 size =  var.size
 rootDevName = var.rootDevName
 DevName = var.DevName
-
+enable_custom_ami = var.enable_custom_ami
 #---------------------------------------------------------------------------------------------------------------------------------------
 #ASG
+enable_asg = var.enable_asg
 des_capacity = var.des_capacity
 maxSize = var.maxSize
 minSize = var.minSize
@@ -30,12 +32,13 @@ imgID = var.imgID
 #----------------------------------------------------------------------------------------------------------
 
 #Auto Start - Stop
-
+enable_auto_start_stop = var.enable_auto_start_stop
 timeout = var.timeout
 
 #----------------------------------------------------------------------------------------------------------
 
 #Automated Session Manager in Private network
+enable_auto_sess_manager = var.enable_auto_sess_manager
 availability_zones = var.availability_zones
 name               = var.name
 private_start_ip   = var.private_start_ip

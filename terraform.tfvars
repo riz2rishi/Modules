@@ -1,13 +1,15 @@
 
-
+region = "us-east-1"    
+profile = "terraform-rishi-aws"
 
 
 #####################################################################################
 ####################################### ec2_mod #####################################
 
+#----------------------------------------------------------------------------------------
+#ec2 instance
 
-region = "us-east-1"    
-profile = "terraform-rishi-aws"
+enable_instance = false #Set true to deploy instance
 ami = {east1 = "ami-087c17d1fe0178315", east2 = "ami-00dfe2c7ce89a450b", west-1="ami-011996ff98de391d1",west-2="ami-0c2d06d50ce30b442"}
 instanceType = "t2.micro"
 index =0
@@ -16,6 +18,7 @@ index =0
 #---------------------------------------------------------------------------------------------------------------------------------------
 
 #Custom AMIs (Golden Images)
+enable_custom_ami = false
 az = {east1a = "us-east-1a" , east1b = "us-east-1b"}
 size =  40
 rootDevName = "/dev/xvda"
@@ -23,6 +26,7 @@ DevName = "/dev/xvda"
 
 #---------------------------------------------------------------------------------------------------------------------------------------
 #ASG
+enable_asg = false
 des_capacity = 1
 maxSize = 1
 minSize = 1
@@ -32,12 +36,13 @@ imgID = "ami-087c17d1fe0178315"
 #----------------------------------------------------------------------------------------------------------
 
 #Auto Start - Stop
-
+enable_auto_start_stop = true
 timeout = "300"
 
 #----------------------------------------------------------------------------------------------------------
 
 #Automated Session Manager in Private network
+enable_auto_sess_manager = false
 availability_zones = ["us-east-1a", "us-east-1b", "us-east-1c"]
 name               = "NAME OF YOUR APPLICATION"
 private_start_ip   = "30"

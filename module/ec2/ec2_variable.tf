@@ -2,28 +2,35 @@
 variable "region"{
     description = " Name of region "
     type = string
-    default = "us-east-1"    
+      
 }
 variable "profile"{
   description = "Name of profile"
   type = string
-  default= "AWS_CIL"
+  
 }
+
 variable "ami"{
   description = "AMI ID "
   type = map(any)
-    default= {east1 = "ami-087c17d1fe0178315", east2 = "ami-00dfe2c7ce89a450b", west-1="ami-011996ff98de391d1",west-2="ami-0c2d06d50ce30b442"}
+    
+}
+#variables for instance creation
+variable "enable_instance" {
+  type = bool
+  
+  description = " Want to deploy EC2 instance ? (true / false)"
 }
 variable "instanceType"{
   description = "Type of instance"
   type = string
-  default= "t2.micro"
+  
 }
 
 variable "index" {
     description = "Index number"
     type = number
-    default=0
+    
 }
 
 #-------------------------------------------------------------------------------------------------------
@@ -31,59 +38,68 @@ variable "index" {
 
 
 #Golden Image   (need to put list of AZs)
+variable "enable_custom_ami" {
+  type = bool
+  
+  description = " Want to deploy custom AMI ? (true / false)"
+}
 
 variable "az" {
-    description = "Name of AZ"
+  description = "Name of AZ"
   type = map(any)
-  default= {east1a = "us-east-1a" , east1b = "us-east-1b"}
+  
 }
 variable "size" {
-    description = "Size"
+  description = "Size"
   type = number
-  default=  40
+  
 }
 variable "rootDevName" {
-    description = "Root Device Name"
+  description = "Root Device Name"
   type = string
-  default=  "/dev/xvda"
+  
 }
 variable "DevName" {
   description = "Device name of block"
   type = string
-  default = "/dev/xvda"
+  
 }
 
 #------------------------------------------------------------------------------------------------------------
 
 
 #ASG Variables
-
+variable "enable_asg" {
+  description = "Want to deploy Auto Scaling Groups ? (true/false)"
+  
+  type = bool
+}
 variable "des_capacity" {
   description = "Desired capacity of ASG"
   type = number
-  default = 1
+  
 }
 variable "maxSize" {
   description = "Maximum size of ASG"
   type = number
-  default = 1
+  
 }
 variable "minSize" {
   description = "Minimum size of ASG"
   type = number
-  default = 1
+  
 }
 
 variable "namePrefix" {
   description = "Name Prefix of AWS launch Template"
   type = string
-  default = "foobar"
+  
 }
 
 variable "imgID" {
   description = "Image ID of launch template"
   type = string
-  default = "ami-087c17d1fe0178315"
+  
 }
 
 
@@ -92,17 +108,26 @@ variable "imgID" {
 
 
 #Auto Start - Stop
-
+variable "enable_auto_start_stop" {
+  type = bool 
+  
+  description = "Want to enable auto start - stop functionality for EC2 instance ? (true /false)"
+}
 
 variable "timeout" {
   type = string
   description = " Duration for timeout"
-  default ="300"
+  
 }
 
 
-#------------------------------------
+#------------------------------------Automated Sessions Manager---------------------------------------------------------
 
+variable "enable_auto_sess_manager" {
+  
+  description = "Want to deploy automatic session manager ? (true/false)"
+  type = bool
+}
 variable "availability_zones" {
   description = "AWS AVailability Zones"
   type        = list
